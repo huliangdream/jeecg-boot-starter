@@ -16,13 +16,11 @@
             <groupId>org.jeecgframework.boot</groupId>
             <artifactId>jeecg-boot-common3</artifactId>
         </dependency>
-
         <!--server-api-->
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
         </dependency>
-
         <!-- Nacos注册中心 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -58,7 +56,5 @@
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
         </dependency>
-
     </dependencies>
-
 </project>

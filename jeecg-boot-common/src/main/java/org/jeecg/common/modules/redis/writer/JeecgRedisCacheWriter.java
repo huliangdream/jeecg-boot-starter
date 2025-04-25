@@ -67,7 +67,20 @@ public class JeecgRedisCacheWriter implements RedisCacheWriter {
 
     @Override
     public CompletableFuture<Void> store(String name, byte[] key, byte[] value, Duration ttl) {
-        return null;
+        Assert.notNull(name, "Name must not be null!");
+        Assert.notNull(key, "Key must not be null!");
+        Assert.notNull(value, "Value must not be null!");
+
+        return CompletableFuture.runAsync(() -> {
+            execute(name, connection -> {
+                if (shouldExpireWithin(ttl)) {
+                    connection.set(key, value, Expiration.from(ttl.toMillis(), TimeUnit.MILLISECONDS), SetOption.upsert());
+                } else {
+                    connection.set(key, value);
+                }
+                return "OK";
+            });
+        });
     }
 
     @Override
@@ -81,7 +94,18 @@ public class JeecgRedisCacheWriter implements RedisCacheWriter {
 
     @Override
     public CompletableFuture<byte[]> retrieve(String name, byte[] key, Duration ttl) {
-        return null;
+        Assert.notNull(name, "Name must not be null!");
+        Assert.notNull(key, "Key must not be null!");
+
+        return CompletableFuture.supplyAsync(() -> {
+            return (byte[]) execute(name, connection -> {
+                byte[] value = connection.get(key);
+                if (value == null && shouldExpireWithin(ttl)) {
+                    // 如果值不存在且需要设置过期时间，可以在这里处理
+                }
+                return value;
+            });
+        });
     }
 
     @Override

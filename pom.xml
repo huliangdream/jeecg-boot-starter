@@ -28,7 +28,7 @@
         <developerConnection>http://guojusoft.com</developerConnection>
         <url>http://www.jeecg.com/vip</url>
     </scm>
-    
+
     <properties>
         <jeecgboot.version>${project.version}</jeecgboot.version>
         <java.version>17</java.version>
@@ -39,16 +39,13 @@
         <!-- chatGpt -->
         <chat-gpt-java.varsion>1.1.5</chat-gpt-java.varsion>
         <commons.version>2.6</commons.version>
-
         <!-- 分布式锁、xxljob、分库分表 -->
         <redisson.version>3.16.1</redisson.version>
         <xxl-job-core.version>2.2.0</xxl-job-core.version>
         <dynamic-datasource-spring-boot-starter.version>4.1.3</dynamic-datasource-spring-boot-starter.version>
-
         <!-- SpringCloud -->
         <spring-cloud.version>2023.0.1</spring-cloud.version>
         <spring-cloud-alibaba.version>2023.0.1.0</spring-cloud-alibaba.version>
-
         <logback.version>1.4.12</logback.version>
         <nacos.client.version>2.3.2</nacos.client.version>
         <rocketmq.version>2.2.2</rocketmq.version>
@@ -101,13 +98,23 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- jeecg-boot-common【原名：jeecg-boot-base-tools】-->
+            <!-- 本项目start -->
             <dependency>
                 <groupId>org.jeecgframework.boot</groupId>
                 <artifactId>jeecg-boot-common3</artifactId>
                 <version>${jeecgboot.version}</version>
             </dependency>
-            <!-- hutool工具类-->
+            <dependency>
+                <groupId>org.jeecgframework.boot</groupId>
+                <artifactId>jeecg-boot-starter-chatgpt</artifactId>
+                <version>${jeecgboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jeecgframework.boot</groupId>
+                <artifactId>jeecg-boot-starter3-rabbitmq</artifactId>
+                <version>${jeecgboot.version}</version>
+            </dependency>
+            <!-- 本项目end -->
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-core</artifactId>
@@ -118,40 +125,27 @@
                 <artifactId>hutool-crypto</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
-            <!-- guava工具类 -->
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
             </dependency>
-            <!-- commons-beanutils -->
             <dependency>
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
                 <version>${commons-beanutils.version}</version>
             </dependency>
-            <!-- update-begin-author:chenrui -date:20240110  for：[QQYUN-5509]AI生成表结构和软文- -->
-            <!-- commons-lang -->
             <dependency>
                 <groupId>commons-lang</groupId>
                 <artifactId>commons-lang</artifactId>
                 <version>${commons.version}</version>
             </dependency>
-            <!-- chatGpt-java -->
             <dependency>
                 <groupId>com.unfbx</groupId>
                 <artifactId>chatgpt-java</artifactId>
                 <version>${chat-gpt-java.varsion}</version>
             </dependency>
-            <!-- jeecg-boot-aiChat starter-->
-            <dependency>
-                <groupId>org.jeecgframework.boot</groupId>
-                <artifactId>jeecg-boot-starter-chatgpt</artifactId>
-                <version>${jeecgboot.version}</version>
-            </dependency>
-            <!-- update-end-author:chenrui -date:20240110  for：[QQYUN-5509]AI生成表结构和软文- -->
             <!-- 微服务 start -->
-            <!-- spring-cloud-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -166,17 +160,10 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!-- redisson -->
             <dependency>
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson</artifactId>
                 <version>${redisson.version}</version>
-            </dependency>
-            <!--rabbitmq消息队列-->
-            <dependency>
-                <groupId>org.jeecgframework.boot</groupId>
-                <artifactId>jeecg-boot-starter3-rabbitmq</artifactId>
-                <version>${jeecgboot.version}</version>
             </dependency>
             <!-- 微服务 end -->
         </dependencies>
@@ -327,5 +314,5 @@
             </distributionManagement>
         </profile>
     </profiles>
-    
+
 </project>
