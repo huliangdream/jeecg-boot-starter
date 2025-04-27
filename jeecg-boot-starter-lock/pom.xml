@@ -16,15 +16,9 @@
             <groupId>org.jeecgframework.boot</groupId>
             <artifactId>jeecg-boot-common3</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.redisson</groupId>
             <artifactId>redisson</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
