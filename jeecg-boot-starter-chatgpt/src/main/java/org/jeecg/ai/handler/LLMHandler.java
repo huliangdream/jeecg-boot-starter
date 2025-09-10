@@ -16,6 +16,7 @@ import dev.langchain4j.rag.DefaultRetrievalAugmentor;
 import dev.langchain4j.rag.query.Metadata;
 import dev.langchain4j.service.AiServiceContext;
 import dev.langchain4j.service.AiServiceTokenStream;
+import dev.langchain4j.service.AiServiceTokenStreamParameters;
 import dev.langchain4j.service.TokenStream;
 import dev.langchain4j.service.output.ServiceOutputParser;
 import dev.langchain4j.service.tool.ToolExecutor;
@@ -112,7 +113,7 @@ public class LLMHandler {
         params = ensureParams(params);
 
         AiModelOptions modelOp = params.toModelOptions();
-        ChatLanguageModel chatModel = AiModelFactory.createChatModel(modelOp);
+        ChatModel chatModel = AiModelFactory.createChatModel(modelOp);
 
         // 整理消息
         CollateMsgResp chatMessage = collateMessage(messages, params);
@@ -158,8 +159,6 @@ public class LLMHandler {
                 chatMessage.chatMemory.add(resultMsg);
             }
         }
-
-
         log.info("[LLMHandler] Received the AI's response . message: {}", resp);
         return resp;
     }
@@ -181,7 +180,7 @@ public class LLMHandler {
 
         // model
         AiModelOptions modelOp = params.toModelOptions();
-        StreamingChatLanguageModel streamingChatModel = AiModelFactory.createStreamingChatModel(modelOp);
+        StreamingChatModel streamingChatModel = AiModelFactory.createStreamingChatModel(modelOp);
 
         // 工具定义
         List<ToolSpecification> toolSpecifications = new ArrayList<>();
