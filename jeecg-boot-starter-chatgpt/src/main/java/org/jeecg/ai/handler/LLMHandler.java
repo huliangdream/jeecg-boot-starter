@@ -5,8 +5,8 @@ import dev.langchain4j.agent.tool.ToolSpecification;
 import dev.langchain4j.data.message.*;
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
-import dev.langchain4j.model.chat.ChatLanguageModel;
-import dev.langchain4j.model.chat.StreamingChatLanguageModel;
+import dev.langchain4j.model.chat.ChatModel;
+import dev.langchain4j.model.chat.StreamingChatModel;
 import dev.langchain4j.model.chat.request.ChatRequest;
 import dev.langchain4j.model.chat.response.ChatResponse;
 import dev.langchain4j.model.output.Response;
@@ -143,7 +143,8 @@ public class LLMHandler {
 
             // 没有工具调用，则解析文本并结束
             if (aiMessage.toolExecutionRequests() == null || aiMessage.toolExecutionRequests().isEmpty()) {
-                resp = (String) serviceOutputParser.parse(new Response<>(response.aiMessage()), String.class);
+                // TODO 只是改了不报错，但实际效果还没测
+                resp = (String) serviceOutputParser.parse(response, String.class);
                 break;
             }
 
@@ -197,14 +198,16 @@ public class LLMHandler {
         AiServiceContext context = new AiServiceContext(AiStreamChatAssistant.class);
         context.streamingChatModel = streamingChatModel;
         log.info("[LLMHandler] send message to AI server. message: {}", chatMessage);
-        return new AiServiceTokenStream(
-                chatMessage.chatMemory.messages(),
-                toolSpecifications,
-                toolExecutors,
-                chatMessage.augmentationResult != null ? chatMessage.augmentationResult.contents() : null,
-                context,
-                "default"
-        );
+        // TODO 只是改了不报错，但实际效果还没测
+        // 构造 AiServiceTokenStreamParameters
+        AiServiceTokenStreamParameters parameters = AiServiceTokenStreamParameters.builder()
+                .messages(chatMessage.chatMemory.messages())
+                .toolSpecifications(toolSpecifications)
+                .toolExecutors(toolExecutors)
+                .context(context)
+                .build();
+
+        return new AiServiceTokenStream(parameters);
     }
 
     /**

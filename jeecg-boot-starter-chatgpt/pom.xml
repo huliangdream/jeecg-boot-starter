@@ -64,6 +64,12 @@
             <artifactId>langchain4j-community-zhipu-ai</artifactId>
             <version>${langchain-community.version}</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>error_prone_annotations</artifactId>
+                    <groupId>com.google.errorprone</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>dev.langchain4j</groupId>
